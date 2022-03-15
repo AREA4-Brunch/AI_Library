@@ -115,13 +115,13 @@ def demoSpiral():
         # ),
 
         # good model:
-        # ( 10001,  # num epochs
-        #   learning_rate_to_train_with,  # learning rate
-        #   getModel1(train_set_X.shape[0], learning_rate_to_train_with),
-        #   data_cleaner.exportTransformationParams(),
-        #   True,  # do_train_model
-        #   True  # do_save_model_after_training
-        # ),
+        ( 10001,  # num epochs
+          learning_rate_to_train_with,  # learning rate
+          getModel1(train_set_X.shape[0], learning_rate_to_train_with),
+          data_cleaner.exportTransformationParams(),
+          True,  # do_train_model
+          True  # do_save_model_after_training
+        ),
 
         # do not train the loaded in model, just test it:
         (1, 1e-0, saved_model_0, data_transform_params_0, False, False),
@@ -197,14 +197,13 @@ def exploreModels(train_set_X, train_set_y,
             # Collect the costs from training and add to plt:
             models_costs = []
 
-            # collect costs over each epoch:
+            # collect costs over each epoch or mini batches
+            # epochs are of higher priority
             if "epoch_costs" in metrics_tracker:
                 for epoch_key, epoch_cost \
                 in metrics_tracker["epoch_costs"].items():
                     models_costs.append(epoch_cost)
-
-            # collect costs over all mini batches:
-            if "mini_batches_costs" in metrics_tracker:
+            elif "mini_batches_costs" in metrics_tracker:
                 for mini_batch_key, mini_batch_cost \
                 in metrics_tracker["mini_batches_costs"].items():
                     models_costs.append(mini_batch_cost)
