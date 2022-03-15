@@ -1,0 +1,2 @@
+Train and test datasets that can be used to demonstrate _demo_cats_vs_non_cats.py can be found here:
+https://github.com/ridhimagarg/Cat-vs-Non-cat-Deep-learning-implementation/tree/master/datasets
