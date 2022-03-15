@@ -101,18 +101,17 @@ def demoCurveFit():
     #   do_save_model_after_training )
 
     epochs_to_train_on = 10001
-    # epochs_to_train_on = 11
     learning_rate_to_train_with = 0.0007
 
     models_to_explore = [
         # Best and only model, 10001 epochs on lr=0.0007:
-        # ( epochs_to_train_on,
-        #   learning_rate_to_train_with,
-        #   getModel0(train_set_X.shape[0], learning_rate_to_train_with),
-        #   None,  # data cleaner
-        #   True,  # do_train_model
-        #   True  # do_save_model_after_training
-        # ),
+        ( epochs_to_train_on,
+          learning_rate_to_train_with,
+          getModel0(train_set_X.shape[0], learning_rate_to_train_with),
+          None,  # data cleaner
+          True,  # do_train_model
+          True  # do_save_model_after_training
+        ),
 
         # ( 2 * epochs_to_train_on,
         #   0.5 * learning_rate_to_train_with,
@@ -193,14 +192,14 @@ def exploreModels(train_set_X, train_set_y,
                 for key, accuracy in metrics_tracker["accuracy"][1].items():
                     print("{}: {}".format(key, accuracy))
 
-            # collect costs over each epoch:
-            # for epoch_key, epoch_cost \
-            #    in metrics_tracker["epoch_costs"].items():
-            #     models_costs.append(epoch_cost)
-
-            # collect costs over all mini batches:
+            # collect costs over each epoch or mini batches
+            # epochs are of higher priority
             models_costs.append([model_name, []])
-            if "mini_batches_costs" in metrics_tracker:
+            if "epoch_costs" in metrics_tracker:
+                for epoch_key, epoch_cost \
+                in metrics_tracker["epoch_costs"].items():
+                    models_costs[-1][1].append(epoch_cost)
+            elif "mini_batches_costs" in metrics_tracker:
                 for mini_batch_key, mini_batch_cost \
                 in metrics_tracker["mini_batches_costs"].items():
                     models_costs[-1][1].append(mini_batch_cost)
