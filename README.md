@@ -5,4 +5,4 @@ To test the mini library there are 3 demo files:
   - _demo_cats_vs_non_cats.py
   - _demo_curve_fit.py
   - _demo_spiral_fit.py
- 
+  - _demo_CIFAR10.py
