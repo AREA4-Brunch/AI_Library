@@ -277,7 +277,7 @@ def exploreModels(train_set_X, train_set_y,
 
 def getLeNet5(learning_rate):
     """
-        Input to the model are grayscale imgs of shape: (32, 32, 3)
+        Input to the model are imgs of shape: (32, 32, 3)
     """
     input_img_shape = (32, 32, 3)
 
@@ -334,8 +334,8 @@ def saveExploredModel(model, num_epochs, learning_rate,
 
 
 def loadExploredModel(num_epochs, learning_rate, model_name):
-    """ Given args are used reconstruct name of the file in
-        which the model is stored.
+    """ Given args are used to reconstruct name of the file in
+        which the model was stored.
     """
     model_name = "{}_e={}_lr={}".format(model_name,
                                         num_epochs,
@@ -355,8 +355,8 @@ def loadCIFAR10(num_train_imgs=-1, num_test_imgs=-1):
     """ Loads the standardized dataset formed by calling
         buildCIFAR10 once.
         If num imgs for given dataset is negative the full
-        10k imgs dataset will be loaded in, otheriwise
-        the stored trimmed down version.
+        10k imgs dataset will be loaded in, otherwise will
+        load the stored, trimmed down, version.
     """
 
     classes = ["airplane", "automobile", "bird", "cat", "deer",
