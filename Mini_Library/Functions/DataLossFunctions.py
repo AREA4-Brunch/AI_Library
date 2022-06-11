@@ -49,7 +49,7 @@ class CrossEntropyLoss(DifferentiableFunction):
 
         if y_correct.shape[0] > 1:  # y_correct is one-hot encoded
             return -1. * np.sum(np.divide(y_correct, self.epsilon + y_pred),
-                                axis=1, keepdims=True)
+                                axis=0, keepdims=True)
 
         if y_pred.shape[0] > 1:  # it is multi class classification
             dA_L = np.zeros_like(y_pred)
