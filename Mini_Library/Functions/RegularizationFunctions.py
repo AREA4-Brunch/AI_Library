@@ -2,7 +2,8 @@
     Following Regularization Functions have been implemented:
         L1
         L2
-        Dropout
+        Dropout - Implemented as DropoutLayer in ../MyAI/Layers.
+        Inverted Dropout - Implemented as InvertedDropoutLayer in ../MyAI/Layers.
 """
 
 
@@ -27,10 +28,10 @@ class L1_Regularization(DifferentiableFunction):
         return self.calc(layers)
 
     def L1_Regularization(self, layer_params_W):
-        return 0.5 * self.reg_param * np.sum(layer_params_W)
+        return 0.5 * self.reg_param * np.sum(np.absolute(layer_params_W))
 
     def L1_firstDerivative(self, layer_params_W):
-        return 0.5 * self.reg_param * np.ones_like(layer_params_W)
+        return 0.5 * self.reg_param * np.sign(layer_params_W)
 
 
 class L2_Regularization(DifferentiableFunction):
