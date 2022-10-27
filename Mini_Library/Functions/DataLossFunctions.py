@@ -73,8 +73,9 @@ class MSE_Loss(DifferentiableFunction):
     """ Mean squared error (MSE) loss function.
         Version with 0.5 multilpying loss. """
 
-    def __init__(self):
+    def __init__(self, do_divide_by_dimensionality=False):
         super().__init__(self.MSE, self.MSE_FirstDerivative)
+        self.do_divide_by_dimensionality = do_divide_by_dimensionality
 
     def __call__(self, y_pred, y_correct):
         return self.MSE(y_pred, y_correct)
@@ -82,7 +83,13 @@ class MSE_Loss(DifferentiableFunction):
     def MSE(self, y_pred, y_correct):
         """ Assumes y_pred.shape == y_correct.shape """
         # division by number of data samples is left to MeanCostFunction
-        return 0.5 * np.sum(np.square(y_correct - y_pred), axis=0)
+        if not self.do_divide_by_dimensionality:
+            return 0.5 * np.sum(np.square(y_correct - y_pred), axis=0)
+
+        return 0.5 * np.mean(np.square(y_correct - y_pred), axis=0)
 
     def MSE_FirstDerivative(self, y_pred, y_correct):
-        return y_pred - y_correct
+        if not self.do_divide_by_dimensionality:
+            return y_pred - y_correct
+
+        return (y_pred - y_correct) / y_pred.shape[0]
