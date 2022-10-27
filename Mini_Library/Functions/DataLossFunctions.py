@@ -80,7 +80,9 @@ class MSE_Loss(DifferentiableFunction):
         return self.MSE(y_pred, y_correct)
 
     def MSE(self, y_pred, y_correct):
-        return 0.5 * np.mean(np.square(y_correct - y_pred), axis=0)
+        """ Assumes y_pred.shape == y_correct.shape """
+        # division by number of data samples is left to MeanCostFunction
+        return 0.5 * np.sum(np.square(y_correct - y_pred), axis=0)
 
     def MSE_FirstDerivative(self, y_pred, y_correct):
         return y_pred - y_correct
